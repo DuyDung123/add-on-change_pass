@@ -31,4 +31,30 @@ export class SystemUtils{
     openNewTab = (newURL) =>{
         chrome.tabs.create({ url: newURL });
     }
+
+    requestGetDataToBackground = (message) => {
+        chrome.runtime.sendMessage(message);
+    }
+
+    checkDataToStorage = (key) => {
+        return new Promise(resolve => {
+            chrome.storage.sync.get(key, function (da) {
+                if (!jQuery.isEmptyObject(da)) {
+                    console.log(da);
+                    if (typeof da.data === 'undefined') {
+                        resolve(false);
+                    } else {
+                        resolve(true);
+                    }
+                } else {
+                    console.log(da);
+                    resolve(false);
+                }
+            });
+        });
+    }
+
+    sleep = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
 }

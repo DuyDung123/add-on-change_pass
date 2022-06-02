@@ -1,32 +1,34 @@
 export class Via {
-    constructor(uid, pass, passNew, emailOld, passEmailOld, emailNew, passEmailNew, isChangePass, isLogOut, isChangeMail, is2Fa) {
-      this.uid = uid;
 
-      this.pass = pass;
+    uid = null
 
-      this.passNew = passNew;
+    pass = null;
 
-      this.emailOld = emailOld;
+    passNew = null;
 
-      this.passEmailOld = passEmailOld;
+    emailOld = null;
 
-      this.qRcode2Fa;
+    passEmailOld = null;
 
-      this.emailNew = emailNew;
+    qRcode2Fa = null;
 
-      this.passEmailNew = passEmailNew;
+    emailNew = null;
 
-      this.cookie;
+    passEmailNew = null;
 
-      this.token;
+    cookie = null;
 
-      this.isChangePass = isChangePass;
+    token = null;
 
-      this.isLogOut = isLogOut;
+    isChangePass = null;
 
-      this.isChangeMail = isChangeMail;
+    isLogOut = null;
 
-      this.is2Fa = is2Fa;
+    isChangeMail = null;
+
+    is2Fa = null;
+
+    constructor() {
     }
 
     set setPassNew(passNew) {
@@ -60,4 +62,18 @@ export class Via {
     set setIs2Fa(is2Fa) {
         this.is2Fa = is2Fa;
     }
-  }
+
+    toJsonObject = () => {
+        return {
+          name: this.name,
+          id: this.id,
+          status: this.status,
+          timeStart: this.timeStart,
+          timeContinue: this.timeContinue,
+          timeEnd: this.timeEnd,
+          data: this.data,
+          steps: this.steps.map((item) => item.toJsonObject()),
+          stepIndex: this.stepIndex,
+        };
+    }
+}
