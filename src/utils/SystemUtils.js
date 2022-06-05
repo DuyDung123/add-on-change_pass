@@ -5,6 +5,10 @@ export class SystemUtils{
     clearStorage = () =>{
         chrome.storage.sync.clear();
     }
+
+    requestGetDataToBackground = (message) => {
+        chrome.runtime.sendMessage(message);
+    }
     
     getDataToStorage = (key) =>{
         let data ;
@@ -32,10 +36,6 @@ export class SystemUtils{
         chrome.tabs.create({ url: newURL });
     }
 
-    requestGetDataToBackground = (message) => {
-        chrome.runtime.sendMessage(message);
-    }
-
     checkDataToStorage = (key) => {
         return new Promise(resolve => {
             chrome.storage.sync.get(key, function (da) {
@@ -54,7 +54,26 @@ export class SystemUtils{
         });
     }
 
-    sleep = (ms) => {
+    goToPage = (url) =>{
+        window.location.href = url;
+    }
+
+    regexString = (html, regex) =>{
+        let res;
+        let group;
+        while ((group = regex.exec(html)) !== null) {
+            if (group.index === regex.lastIndex) {
+                regex.lastIndex++;
+            }
+            group.forEach((match, groupIndex) => {
+                console.log(`Found match, group ${groupIndex}: ${match}`);
+            });
+            res = group[group.length - 1];
+        }
+        return res;
+    }
+
+    sleep =(ms) =>{
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 }

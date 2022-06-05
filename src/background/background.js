@@ -4,7 +4,16 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     const systemUtils = new SystemUtils;
     if (message) {
         if(message.type == 'load_data'){
-            loadData(message.data);
+            $.ajax({
+                type: "GET",
+                url: BASE_SERVER + "/getData",
+                success: function (response) {
+                    systemUtils.saveDataToStorage(response);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
         }
         if(message.type == 'request_CodeEmail'){
             let email = message.data;
@@ -41,16 +50,3 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         }
     }
 });
-
-function loadData(data) {
-    $.ajax({
-        type: "GET",
-        url: BASE_SERVER + "/getData",
-        success: function (response) {
-            saveDataToStorage(response);
-        },
-        error: function (error) {
-            console.log(error);
-        }
-    });
-}
