@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 type: "GET",
                 url: BASE_SERVER + "/getData",
                 success: function (response) {
-                    systemUtils.saveDataToStorage(response);
+                    systemUtils.saveDataToStorage(data = {'data': response});
                 },
                 error: function (error) {
                     console.log(error);
@@ -26,7 +26,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         if(message.type == 'request_2FA'){
             var data = getDataToStorage("data");
             data.qRcode2FA = message.data;
-            saveDataToStorage(data);
+            systemUtils.saveDataToStorage(data = {'data': data});
             systemUtils.openNewTab(BASE_URL_2FA);
         }
         if(message.type == 'request_closeTab'){
@@ -42,7 +42,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 }
                 let data = systemUtils.getDataToStorage("data");
                 data.cookie = stringCookie;
-                systemUtils.saveDataToStorage(data);
+                systemUtils.saveDataToStorage(data = {'data': data});
             });
         }
         if (message.type == 'get_token') {

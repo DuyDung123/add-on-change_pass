@@ -1,6 +1,8 @@
 export class Via {
 
-    uid = null
+    id = null;
+
+    uid = null;
 
     pass = null;
 
@@ -65,15 +67,11 @@ export class Via {
 
     toJsonObject = () => {
         return {
-          name: this.name,
           id: this.id,
+          uid: this.uid,
+          pass: this.pass,
+          passNew: this.passNew,
           status: this.status,
-          timeStart: this.timeStart,
-          timeContinue: this.timeContinue,
-          timeEnd: this.timeEnd,
-          data: this.data,
-          steps: this.steps.map((item) => item.toJsonObject()),
-          stepIndex: this.stepIndex,
         };
     }
 }

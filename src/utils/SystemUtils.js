@@ -20,7 +20,7 @@ export class SystemUtils{
     }
     
     saveDataToStorage = (data) => {
-        chrome.storage.sync.set({ 'data': data });
+        chrome.storage.sync.set(data);
         console.log(data);
     }
     

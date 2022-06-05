@@ -1,4 +1,4 @@
-import { ChangePassFBModel } from "../model/ChangePassFBModel";
+import { FBModel } from "../model/FBModel";
 import { FB } from "../utils/Constants";
 import { SystemUtils } from "../utils/SystemUtils";
 
@@ -6,7 +6,7 @@ export class Job_ChangePass {
 
     changePass = () => {
 
-        const changePassFBModel = new ChangePassFBModel;
+        const changePassFBModel = new FBModel;
         const systemUtils = new SystemUtils;
         const fb = new FB;
         let url = document.location.href;
@@ -19,16 +19,16 @@ export class Job_ChangePass {
             systemUtils.requestGetDataToBackground(message = { data: 'getData', type: 'load_data' })
 
             while (true) {
-                if (await checkDataToStorage('data')) {
+                if (await systemUtils.checkDataToStorage('data')) {
                     break;
                 } else {
-                    await sleep(5000);
+                    await systemUtils.sleep(5000);
                 }
             }
 
-            via = systemUtils.getDataToStorage(key);
+            let via = systemUtils.getDataToStorage(key);
 
-            changePassFBModel.login(via)
+            changePassFBModel.login(via);
         }
         if (url.includes(fb.URL_SAVE_DEVICE)) {
             changePassFBModel.noSaveDevice();
@@ -72,97 +72,34 @@ export class Job_ChangePass {
             }
 
         }
-        if (url.includes("settings/security/password")) {
-
-            if ($('input[name="password_old"]') != null) {
-                $('input[name="password_old"]').val(data.password);
-            }
-            await sleep(1000);
-
-            if ($('input[name="password_new"]') != null) {
-                $('input[name="password_new"]').val(data.passwordNew);
-            }
-            await sleep(1000);
-
-            if ($('input[name="password_confirm"]') != null) {
-                $('input[name="password_confirm"]').val(data.passwordNew);
-            }
-            await sleep(1000);
-
-            if ($('button[name="save"]') != null) {
-                $('button[name="save"]').click();
-            }
+        if (url.includes("settings/security/password")) { // change pass
+            const via = await systemUtils.getDataToStorage('data');
+            changePassFBModel.changePass(via);
         }
         if (url.includes("settings/security_login/sessions")) {
             //log out
-            if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]') != null) {
-                $('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]')[0].click();
-
-                await sleep(5000); // nghỉ 5 giây đợi load trang
-
-                if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]') != null) {
-                    //$('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]')[0].click();
-                }
-            }
+            changePassFBModel.logOutAllDervice();
         }
 
         // bật 2fa
         if (url.includes("/security/2fac/setup/intro/metadata/?source=1") || url.includes("/security/2fac/setup/qrcode/generate/?ext=")
             || url.includes("https://m.facebook.com/password/reauth/?next=") || url.includes("https://m.facebook.com/checkpoint/block")) {
-
-            if ($('span[class="mfsm"]') != null) {
-                let messageError = $('span[class="mfsm"]')[0].innerText;
-            }
-            if ($('a[class="_54k8 _56bs _26vk _56bu _52jg"]') != null) {
-                $('a[class="_54k8 _56bs _26vk _56bu _52jg"]')[0].click();
-            }
-            if ($('input[name="pass"]') != null) {
-                $('input[name="pass"]').val(data.passwordNew);
-            }
-
-            await sleep(1000);
-
-            if ($('button[name="save"]') != null) {
-                $('button[name="save"]').click();
-            }
-
-            //let qRcode2FA = document.getElementsByClassName("_52jh _52jj _66g5")[0].innerText;
+            
+            const via = await systemUtils.getDataToStorage('data');
+            changePassFBModel.enable2Fa(via);
 
             // lấy mẫ qRCode
-            if ($('div[class="_52jh _52jj _66g5"]') != null) {
-                let qRcode2FA = $('div[class="_52jh _52jj _66g5"]')[0].innerText
+            changePassFBModel.getCode2Fa();
 
-                await sleep(500);
+            await systemUtils.sleep(1000);
 
-                requestGetDataToBackground(message = {
-                    data: qRcode2FA,
-                    type: 'request_2FA'
-                });
-            }
+            // confirm 2fa
+            changePassFBModel.confirm2Fa(via);
 
-            await sleep(1000);
-
-            if ($('button[name="confirmButton"]') != null) {
-                $('button[name="confirmButton"]').click();
-            }
-
-            // bị checkpoint
-            if ($('input[name="captcha_response"]') != null) {
-                $('input[name="captcha_response"]').val(data.passwordNew);
-            }
-            if ($('button[name="submit[Continue]"]') != null) {
-                $('button[name="submit[Continue]"]').click();
-            }
         } if (url.includes("https://m.facebook.com/security/2fac/setup/type_code/")) {
-
-            if ($('input[name="code"]') != null) {
-                $('input[name="code"]').val(data.passwordNew);
-            }
-            await sleep(1000);
-
-            if ($('button[id="submit_code_button"]') != null) {
-                $('button[id="submit_code_button"]').click();
-            }
+        //set code 2fa
+            const via = await systemUtils.getDataToStorage('data');
+            changePassFBModel.setCode2Fa();
         }
     }
 }
