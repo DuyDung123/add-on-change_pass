@@ -4,8 +4,10 @@ const path = require("path");
 module.exports = {
   entry: {
     background: "./src/background/background.js",
-    content: "./src/content_script.js",
-    login: "./src/popup/popup.js",
+    content_script: "./src/content_script.js",
+    content_scrip_2fa: "./src/content_scrip_2fa.js",
+    content_scrip_email: "./src/content_scrip_email.js",
+    popup: "./src/popup/popup.js",
   },
   output: {
     filename: "[name].js",
