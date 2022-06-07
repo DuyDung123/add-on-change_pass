@@ -2,7 +2,7 @@ import { FaCodeModel } from "../model/FaCodeModel";
 import { SystemUtils } from "../utils/SystemUtils";
 
 async function getCode2Fa() {
-    await sleep(2000);
+     sleep(2000);
     let url = document.location.href;
     let title = document.getElementsByTagName('title')[0].innerText;
     console.log(title);

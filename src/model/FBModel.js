@@ -13,13 +13,13 @@ export class FBModel {
             $('input[name="email"]').val(via.uid);
         }
 
-        await systemUtils.sleep(2000);
+         systemUtils.sleep(2000);
 
         if ($('input[name="pass"]') != null) {
             $('input[name="pass"]').val(via.pass);
         }
 
-        await systemUtils.sleep(2000);
+         systemUtils.sleep(2000);
 
         if ($('button[name="login"]') != null) {
             $('button[name="login"]').click();
@@ -46,19 +46,19 @@ export class FBModel {
         if (addEmail != null) {
             addEmail[addEmail.length - 2].click();
 
-            await systemUtils.sleep(3000);
+             systemUtils.sleep(3000);
 
             if ($('input[name="email"]') != null) {
                 $('input[name="email"]').val(via.emailNew);
             }
 
-            await systemUtils.sleep(2000);
+             systemUtils.sleep(2000);
 
             if ($('input[name="save_password"]') != null) {
                 $('input[name="save_password"]').val(via.pass);
             }
 
-            await systemUtils.sleep(2000);
+             systemUtils.sleep(2000);
 
             systemUtils.requestGetDataToBackground(message = {data: 'getData', type: 'load_data'});
 
@@ -101,17 +101,17 @@ export class FBModel {
         if ($('input[name="password_old"]') != null) {
             $('input[name="password_old"]').val(via.password);
         }
-        await systemUtils.sleep(1000);
+         systemUtils.sleep(1000);
 
         if ($('input[name="password_new"]') != null) {
             $('input[name="password_new"]').val(via.passwordNew);
         }
-        await systemUtils.sleep(1000);
+         systemUtils.sleep(1000);
 
         if ($('input[name="password_confirm"]') != null) {
             $('input[name="password_confirm"]').val(via.passwordNew);
         }
-        await systemUtils.sleep(1000);
+         systemUtils.sleep(1000);
 
         if ($('button[name="save"]') != null) {
             $('button[name="save"]').click();
@@ -124,7 +124,7 @@ export class FBModel {
         if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]') != null) {
             $('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]')[0].click();
 
-            await systemUtils.sleep(5000); // nghỉ 5 giây đợi load trang
+             systemUtils.sleep(5000); // nghỉ 5 giây đợi load trang
 
             if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]') != null) {
                 //$('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]')[0].click();
@@ -145,7 +145,7 @@ export class FBModel {
             $('input[name="pass"]').val(via.passwordNew);
         }
 
-        await systemUtils.sleep(1000);
+         systemUtils.sleep(1000);
 
         if ($('button[name="save"]') != null) {
             $('button[name="save"]').click();
@@ -157,7 +157,7 @@ export class FBModel {
         if ($('div[class="_52jh _52jj _66g5"]') > 0) {
             let qRcode2FA = $('div[class="_52jh _52jj _66g5"]')[0].innerText
 
-            await systemUtils.sleep(500);
+             systemUtils.sleep(500);
 
             systemUtils.requestGetDataToBackground(message = { data: qRcode2FA, type: 'request_2FA'});
         }
@@ -171,7 +171,7 @@ export class FBModel {
             $('button[name="confirmButton"]').click();
         }
 
-        await systemUtils.sleep(500);
+         systemUtils.sleep(500);
 
         // bị checkpoint
         if ($('input[name="captcha_response"]') != null) {
@@ -186,7 +186,7 @@ export class FBModel {
         if ($('input[name="code"]') != null) {
             $('input[name="code"]').val(code2Fa);
         }
-        await sleep(1000);
+         sleep(1000);
 
         if ($('button[id="submit_code_button"]') != null) {
             $('button[id="submit_code_button"]').click();
