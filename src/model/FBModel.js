@@ -6,20 +6,20 @@ export class FBModel {
 
     BASE_URL_M_FB = "https://m.facebook.com/";
 
-    login = (via) => {
+    login = async (via) => {
         const systemUtils = new SystemUtils;
 
         if ($('input[name="email"]') != null) {
             $('input[name="email"]').val(via.uid);
         }
 
-         systemUtils.sleep(2000);
+        await systemUtils.sleep(2000);
 
         if ($('input[name="pass"]') != null) {
             $('input[name="pass"]').val(via.pass);
         }
 
-         systemUtils.sleep(2000);
+        await systemUtils.sleep(2000);
 
         if ($('button[name="login"]') != null) {
             $('button[name="login"]').click();
@@ -40,27 +40,25 @@ export class FBModel {
         }
     } 
 
-    changeMail = (element, via) =>{
+    changeMail = async (element, via) =>{
         const systemUtils = new SystemUtils;
         let addEmail = element;
         if (addEmail != null) {
             addEmail[addEmail.length - 2].click();
 
-             systemUtils.sleep(3000);
+            await systemUtils.sleep(3000);
 
             if ($('input[name="email"]') != null) {
                 $('input[name="email"]').val(via.emailNew);
             }
 
-             systemUtils.sleep(2000);
+            await systemUtils.sleep(2000);
 
             if ($('input[name="save_password"]') != null) {
                 $('input[name="save_password"]').val(via.pass);
             }
 
-             systemUtils.sleep(2000);
-
-            systemUtils.requestGetDataToBackground(message = {data: 'getData', type: 'load_data'});
+            await systemUtils.sleep(2000);
 
             if ($('button[name="save"]') != null) {
                 $('button[name="save"]').click();
@@ -95,36 +93,39 @@ export class FBModel {
         }
     }
 
-    changePass = (via) => {
+    changePass = async (via) => {
         const systemUtils = new SystemUtils;
 
         if ($('input[name="password_old"]') != null) {
             $('input[name="password_old"]').val(via.password);
         }
-         systemUtils.sleep(1000);
+
+        await systemUtils.sleep(1000);
 
         if ($('input[name="password_new"]') != null) {
             $('input[name="password_new"]').val(via.passwordNew);
         }
-         systemUtils.sleep(1000);
+
+        await systemUtils.sleep(1000);
 
         if ($('input[name="password_confirm"]') != null) {
             $('input[name="password_confirm"]').val(via.passwordNew);
         }
-         systemUtils.sleep(1000);
+
+        await systemUtils.sleep(1000);
 
         if ($('button[name="save"]') != null) {
             $('button[name="save"]').click();
         }
     }
 
-    logOutAllDervice = () => {
+    logOutAllDervice = async () => {
         const systemUtils = new SystemUtils;
 
         if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]') != null) {
             $('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]')[0].click();
 
-             systemUtils.sleep(5000); // nghỉ 5 giây đợi load trang
+            await systemUtils.sleep(5000); // nghỉ 5 giây đợi load trang
 
             if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]') != null) {
                 //$('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]')[0].click();
@@ -132,7 +133,7 @@ export class FBModel {
         }
     }
 
-    enable2Fa = (via) => {
+    enable2Fa = async (via) => {
         const systemUtils = new SystemUtils;
 
         if ($('span[class="mfsm"]') != null) {
@@ -145,48 +146,58 @@ export class FBModel {
             $('input[name="pass"]').val(via.passwordNew);
         }
 
-         systemUtils.sleep(1000);
+        await systemUtils.sleep(1000);
 
         if ($('button[name="save"]') != null) {
             $('button[name="save"]').click();
         }
     }
 
-    getCode2Fa = () =>{
+    getCode2Fa = async () =>{
         const systemUtils = new SystemUtils;
         if ($('div[class="_52jh _52jj _66g5"]') > 0) {
             let qRcode2FA = $('div[class="_52jh _52jj _66g5"]')[0].innerText
 
-             systemUtils.sleep(500);
+            await systemUtils.sleep(500);
 
-            systemUtils.requestGetDataToBackground(message = { data: qRcode2FA, type: 'request_2FA'});
+            message = {};
+            message.data = qRcode2FA;
+            message.type = 'request_2FA';
+
+            systemUtils.requestGetDataToBackground(message);
         }
 
     }
 
-    confirm2Fa = (via) =>{
+    confirm2Fa = async (via) =>{
         const systemUtils = new SystemUtils;
 
         if ($('button[name="confirmButton"]') != null) {
             $('button[name="confirmButton"]').click();
         }
 
-         systemUtils.sleep(500);
+        await systemUtils.sleep(500);
 
         // bị checkpoint
         if ($('input[name="captcha_response"]') != null) {
             $('input[name="captcha_response"]').val(via.passwordNew);
         }
+
+        await systemUtils.sleep(1000);
+
         if ($('button[name="submit[Continue]"]') != null) {
             $('button[name="submit[Continue]"]').click();
         }
     }
 
-    setCode2Fa = (code2Fa) => {
+    setCode2Fa = async (code2Fa) => {
+        const systemUtils = new SystemUtils;
+
         if ($('input[name="code"]') != null) {
             $('input[name="code"]').val(code2Fa);
         }
-         sleep(1000);
+        
+        await systemUtils.sleep(1000);
 
         if ($('button[id="submit_code_button"]') != null) {
             $('button[id="submit_code_button"]').click();

@@ -9,11 +9,11 @@
 	},
 	"action": {
 	  "default_icon": {
-		"16": "images/icons/16.png",
-		"19": "images/icons/19.png",
-		"38": "images/icons/38.png",
-		"64": "images/icons/64.png",
-		"128": "images/icons/128.png"
+		"16": "icons/16.png",
+		"19": "icons/19.png",
+		"38": "icons/38.png",
+		"64": "icons/64.png",
+		"128": "icons/128.png"
 	  },
 	  "default_title": "change pass FB",
 	  "default_popup": "popup.html"

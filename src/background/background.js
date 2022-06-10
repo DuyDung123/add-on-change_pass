@@ -4,16 +4,15 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     const systemUtils = new SystemUtils;
     if (message) {
         if(message.type == 'load_data'){
-            $.ajax({
-                type: "GET",
-                url: BASE_SERVER + "/getData",
-                success: function (response) {
-                    systemUtils.saveDataToStorage(data = {'data': response});
-                },
-                error: function (error) {
-                    console.log(error);
+            console.log(BASE_SERVER + "/getData");
+            fetch(BASE_SERVER + "/getData").then(res => {
+                if (res.status >= 200 && res.status < 300) {
+                    return res.json()
+                } else {
+                    throw new Error();
                 }
-            });
+            }).then((data) => {console.log(data); systemUtils.saveDataToStorage(data = {'data': data});})
+                .catch(err => console.log('fetch() failed'))
         }
         if(message.type == 'request_CodeEmail'){
             let email = message.data;

@@ -4,7 +4,7 @@ import { SystemUtils } from "../utils/SystemUtils";
 
 export class Job_ChangePass {
 
-    changePass = () => {
+    changePass = async () => {
 
         const changePassFBModel = new FBModel;
         const systemUtils = new SystemUtils;
@@ -16,17 +16,21 @@ export class Job_ChangePass {
         console.log(title);
         console.log(url);
         if (url.includes(fb.BASE_URL_M_FB) && checkMHLogin !== null) {
-            systemUtils.requestGetDataToBackground(message = { data: 'getData', type: 'load_data' })
+
+            const message = {};
+            message.data = 'getData';
+            message.type = 'load_data';
+            systemUtils.requestGetDataToBackground(message);
 
             while (true) {
-                if (systemUtils.checkDataToStorage('data')) {
+                if ( await systemUtils.checkDataToStorage('data')) {
                     break;
                 } else {
                     systemUtils.sleep(5000);
                 }
             }
 
-            let via = systemUtils.getDataToStorage(key);
+            let via = await systemUtils.getDataToStorage('data');
 
             changePassFBModel.login(via);
         }
@@ -37,7 +41,7 @@ export class Job_ChangePass {
             window.location.href = fb.URL_SETTING;
         }
         if (url.includes(fb.URL_SETTING) || url.includes(fb.URL_SETTING_2)) {
-            const data = systemUtils.getDataToStorage('data');
+            const data = await systemUtils.getDataToStorage('data');
             if (data.isChangePass) {
                 window.location.href = fb.URL_SECURITY_PASSWORD;
             } else if (data.islogOut === true) {
@@ -50,12 +54,15 @@ export class Job_ChangePass {
         }
         if (url.includes(fb.URL_CONFRIM_MAIL)) {//lấy code xác nhận email
 
-            const data =  systemUtils.getDataToStorage('data');
-            systemUtils.requestGetDataToBackground(message = {data: data.emailNew, type: 'request_CodeEmail'});
+            const data = await systemUtils.getDataToStorage('data');
+            message = {};
+            message.data = data.emailNew;
+            message.type = 'request_CodeEmail';
+            systemUtils.requestGetDataToBackground(message);
         }
         if (url.includes("/ntdelegatescreen/?params")) {
             //add mail và đặt làm mail chính và for gỡ mail
-            const data =  getDataToStorage('data');
+            const data = await systemUtils.getDataToStorage('data');
 
             // xác nhận mail
             changePassFBModel.confirmMail();
@@ -73,7 +80,7 @@ export class Job_ChangePass {
 
         }
         if (url.includes("settings/security/password")) { // change pass
-            const via =  systemUtils.getDataToStorage('data');
+            const via = await systemUtils.getDataToStorage('data');
             changePassFBModel.changePass(via);
         }
         if (url.includes("settings/security_login/sessions")) {
@@ -85,20 +92,20 @@ export class Job_ChangePass {
         if (url.includes("/security/2fac/setup/intro/metadata/?source=1") || url.includes("/security/2fac/setup/qrcode/generate/?ext=")
             || url.includes("https://m.facebook.com/password/reauth/?next=") || url.includes("https://m.facebook.com/checkpoint/block")) {
             
-            const via =  systemUtils.getDataToStorage('data');
+            const via = await systemUtils.getDataToStorage('data');
             changePassFBModel.enable2Fa(via);
 
             // lấy mẫ qRCode
             changePassFBModel.getCode2Fa();
 
-             systemUtils.sleep(1000);
+            await systemUtils.sleep(1000);
 
             // confirm 2fa
             changePassFBModel.confirm2Fa(via);
 
         } if (url.includes("https://m.facebook.com/security/2fac/setup/type_code/")) {
         //set code 2fa
-            const via =  systemUtils.getDataToStorage('data');
+            const via = await systemUtils.getDataToStorage('data');
             changePassFBModel.setCode2Fa();
         }
     }

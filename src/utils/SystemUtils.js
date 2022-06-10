@@ -11,12 +11,12 @@ export class SystemUtils{
     }
     
     getDataToStorage = (key) =>{
-        let data ;
-        chrome.storage.sync.get(key, function(items){
-            data = items;
-            console.log(data);
+        return new Promise(resolve => {
+            chrome.storage.sync.get(key, function(items){
+                console.log(items);
+                resolve(items);
+            });
         });
-        return data;
     }
     
     saveDataToStorage = (data) => {

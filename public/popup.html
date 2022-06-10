@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>test</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        .main {
+            max-width: 600px;
+            width: 400px;
+            margin: 5px;
+        }
+
+        .loading_overlay {
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-color: gainsboro;
+            opacity: 0.5;
+            z-index: 998;
+        }
+
+        .spinner {
+            position: absolute;
+            left: 43%;
+            top: 40%;
+            height: 60px;
+            width: 60px;
+            margin: 0px auto;
+            -webkit-animation: rotation .6s infinite linear;
+            -moz-animation: rotation .6s infinite linear;
+            -o-animation: rotation .6s infinite linear;
+            animation: rotation .6s infinite linear;
+            border-left: 6px solid rgba(0,174,239,.15);
+            border-right: 6px solid rgba(0,174,239,.15);
+            border-bottom: 6px solid rgba(0,174,239,.15);
+            border-top: 6px solid rgba(0,174,239,.8);
+            border-radius: 100%;
+            z-index: 999;
+        }
+
+        @-webkit-keyframes rotation {
+            from {-webkit-transform: rotate(0deg);}
+            to {-webkit-transform: rotate(359deg);}
+        }
+        @-moz-keyframes rotation {
+            from {-moz-transform: rotate(0deg);}
+            to {-moz-transform: rotate(359deg);}
+        }
+        @-o-keyframes rotation {
+            from {-o-transform: rotate(0deg);}
+            to {-o-transform: rotate(359deg);}
+        }
+        @keyframes rotation {
+            from {transform: rotate(0deg);}
+            to {transform: rotate(359deg);}
+        }
+
+        .msg-warning {
+            color: orangered;
+        }
+
+        #msg_update_app {
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <div class="loading_overlay" style="display: none">
+        <div class="spinner"></div>
+    </div>
+    <div class="login-form container-fluid">
+        <div id="addbookmark" style="display: block">
+            <h2 class="text-center font-weight-bold">change pass</h2>
+            <span id="error" class="text-center" style="color: red"></span>
+            <div class="form-group">
+                <input type="text" class="form-control" id="token" name="token" placeholder="token"
+                       required="required">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" id="cookie" name="cookie" placeholder="cookie"
+                       required="required">
+            </div>
+            <div class="form-group">
+                <button type="button" id="get_token" class="btn btn-primary btn-block">get token</button>
+            </div>
+            <div class="form-group">
+                <button type="button" id="get_cookie" class="btn btn-primary btn-block">get cookie</button>
+            </div>
+        </div>
+
+        <div id="item" style="display: none">
+            <h3 class="text-center font-weight-bold">STATUS</h3>
+            <p></p>
+            <div id="button_yahoo" style="display: none">
+                <button type="button" class="btn btn-danger" id="stopJob">stop</button>
+                <button type="button" class="btn btn-info" id="startJob" style="display: none">get via</button>
+            </div>
+            <p></p>
+            <a style="cursor: pointer" id="itemButton" class="text-danger">ログアウト</a>
+        </div>
+    </div>
+
+    <div class="container-fluid job-control mt-3 border-top border-top-dark">
+        <div class="row">
+            <div class="col"><span>STATUS: </span> <span id="text_status"></span></div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-info" id="btn_get_via">get via</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-danger" id="btn_show_Via">show via</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-danger" id="btn_check_stogate">check</button>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col">
+                <button class="btn btn-danger" id="btn_clear_stogate">clear</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid msg-warning mt-3 border-top border-top-dark p-3 text-center">
+        <i>Develop by Duy Dũng</i>
+    </div>
+
+    <div class="overlay-app-update d-none">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col"><h4 id="msg_update_app"></h4></div>
+            </div>
+            <div class="row">
+                <div class="col"><a href="#" id="btn_download_new_app" target="_blank">出品支援アプリ</a></div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<script src="lib/jquery-3.6.0.min.js"></script>
+<script src="lib/moment.min.js"></script>
+<script src="popup.js"></script>
+</body>
+</html>
