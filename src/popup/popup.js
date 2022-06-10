@@ -1,3 +1,4 @@
+import { Via } from "../object/Via";
 import { SystemUtils } from "../utils/SystemUtils";
 
 $(document).ready(function () {
@@ -12,7 +13,10 @@ $(document).ready(function () {
     $(document).on('click', '#btn_show_Via', async function () {
         const systemUtils = new SystemUtils;
         const data = await systemUtils.getDataToStorage('data');
-        console.log(data);
+        let via = new Via();
+        let res = Object.assign(new Via(), await via.fromJsonStr(data));
+        // via = via.formObject(via.fromJsonStr(data));
+        console.log(res.uid);
     });
 
     $(document).on('click', '#btn_check_stogate', async function () {

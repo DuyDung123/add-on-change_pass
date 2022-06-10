@@ -33,8 +33,24 @@ export class Via {
     constructor() {
     }
 
+    set setId(id){
+        this.id = id;
+    }
+
+    set setUid(uid){
+        this.uid = uid;
+    }
+
+    set setPass(pass) {
+        this.pass = pass;
+    }
+
     set setPassNew(passNew) {
         this.passNew = passNew;
+    }
+
+    set setPassEmailOld(passEmailOld) {
+        this.passEmailOld = passEmailOld;
     }
 
     set setQRcode2Fa(qRcode2Fa) {
@@ -65,13 +81,31 @@ export class Via {
         this.is2Fa = is2Fa;
     }
 
+    fromJsonStr(jsonStr) {
+        return new Promise(resolve => {
+            resolve(JSON.parse(jsonStr));
+        });
+    }
+
+    formObject = (object) =>{
+        this.id = object.id;
+        this.uid = object.uid;
+        this.pass = object.pass;
+        this.passNew = object.passNew;
+        this.passEmailOld = object.passEmailOld;
+        this.qRcode2Fa = object.qRcode2Fa;
+        this.isChangePass = object.isChangePass;
+        this.isLogOut = object.isLogOut;
+        this.isChangeMail = object.isChangeMail;
+        this.is2Fa = object.is2Fa;
+    }
+
     toJsonObject = () => {
         return {
           id: this.id,
           uid: this.uid,
           pass: this.pass,
           passNew: this.passNew,
-          status: this.status,
         };
     }
 }
