@@ -6,21 +6,32 @@ export const BASE_TEST = "http://160.251.123.218/api/get-mercari-category/74";
 export const BASE_HOST_MAIL = "https://outlook.live.com/owa/?nlp=1";
 export const BASE_MAIL_GOOGLE = "https://accounts.google.com/signin/v2/identifier";
 
-export const CHANGE_PASS_SUCCESS = 2;
-export const CHANGE_PASS_ERROR = 3;
 
-export const CHANGE_MAIL_SUCCESS = 2;
-export const CHANGE_MAIL_ERROR = 3;
+// data storage
+export const VIA = "data";
+export const CODE2FA = "code2Fa";
+export const STEP = "step";
+export const CODEEMAIL = "codeEmail";
 
-export const CHANGE_LOGOUT_SUCCESS = 2;
-export const CHANGE_LOGOUT_ERROR = 3;
+export class FB {
 
-export const CHANGE_2FA_SUCCESS = 2;
-export const CHANGE_2FA_ERROR = 3;
+    constructor() { }
 
-export class FB{
+    CHANGE_PASS_WAIT = 1;
+    CHANGE_PASS_SUCCESS = 2;
+    CHANGE_PASS_ERROR = 3;
 
-    constructor(){}
+    CHANGE_MAIL_WAIT = 1;
+    CHANGE_MAIL_SUCCESS = 2;
+    CHANGE_MAIL_ERROR = 3;
+
+    LOGOUT_WAIT = 1;
+    LOGOUT_SUCCESS = 2;
+    LOGOUT_ERROR = 3;
+
+    CHANGE_2FA_WAIT = 1;
+    CHANGE_2FA_SUCCESS = 2;
+    CHANGE_2FA_ERROR = 3;
 
     BASE_URL_M_FB = "https://m.facebook.com/";
     URL_SAVE_DEVICE = "https://m.facebook.com/login/save-device";

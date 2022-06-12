@@ -1,18 +1,22 @@
+import { StepChangeVia } from "../object/StepChangeVia";
 import { BASE_HOST_MAIL, BASE_MAIL_GOOGLE, BASE_SERVER, BASE_URL_2FA, BASE_URL_FB } from "../utils/Constants";
 import { SystemUtils } from "../utils/SystemUtils"
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     const systemUtils = new SystemUtils;
     if (message) {
         if(message.type == 'load_data'){
-            console.log(BASE_SERVER + "/getData");
             fetch(BASE_SERVER + "/getData").then(res => {
                 if (res.status >= 200 && res.status < 300) {
-                    return res.json()
+                    return res.json();
                 } else {
                     throw new Error();
                 }
-            }).then((data) => {console.log(data); systemUtils.saveDataToStorage(data = {'data': data});})
-                .catch(err => console.log('fetch() failed'))
+            }).then((data) => {
+                console.log(data);
+                systemUtils.saveDataToStorage(data = {'data': data});
+            }).catch((err) => {
+                console.log('fetch() => ' + err);
+            })
         }
         if(message.type == 'request_CodeEmail'){
             let email = message.data;
@@ -23,9 +27,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
             systemUtils.openNewTab(url);
         }
         if(message.type == 'request_2FA'){
-            var data = getDataToStorage("data");
-            data.qRcode2FA = message.data;
-            systemUtils.saveDataToStorage(data = {'data': data});
+            // var data = getDataToStorage("data");
+            // data.qRcode2FA = message.data;
+            // systemUtils.saveDataToStorage(data = {'data': data});
             systemUtils.openNewTab(BASE_URL_2FA);
         }
         if(message.type == 'request_closeTab'){

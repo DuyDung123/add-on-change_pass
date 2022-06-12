@@ -1,4 +1,5 @@
-import { BASE_URL_M_FB } from "../utils/Constants";
+import { StepChangeVia } from "../object/StepChangeVia";
+import { BASE_URL_M_FB, FB, STEP } from "../utils/Constants";
 import { SystemUtils } from "../utils/SystemUtils";
 export class FBModel {
 
@@ -60,19 +61,26 @@ export class FBModel {
 
             await systemUtils.sleep(2000);
 
+            
+            via.setIsChangeMail = new FB().CHANGE_MAIL_SUCCESS;
+            this.saveViaToStorage(via);
+
+            await systemUtils.sleep(2000);
+
             if ($('button[name="save"]') != null) {
                 $('button[name="save"]').click();
             }
         }
     }
 
-    setMainMail = (element, via) => {
+    setMainMail = (element, via, step) => {
         const systemUtils = new SystemUtils;
         let addEmail = element;
         for (let i = 0; i < addEmail.length; i++) {
             const regex = '/(?<res>' + via.emailNew + ')' / gm;
             let emailNeedActive = systemUtils.regexString(addEmail[i], regex);
             if (emailNeedActive === data.emailNew) {
+                this.okStepMailChinh();
                 addEmail[i].click();
                 break;
             }
@@ -88,6 +96,7 @@ export class FBModel {
             if (emailNeedActive === via.emailNew || i === addEmail.length - 1 || i === addEmail.lastIndex - 2 || i === addEmail.lastIndex - 3) {
                 continue;
             } else {
+                this.okRemoveEmail();
                 addEmail[i].click();
             }
         }
@@ -114,21 +123,27 @@ export class FBModel {
 
         await systemUtils.sleep(1000);
 
+        via.setIsChangePass = new FB().CHANGE_PASS_SUCCESS;
+
         if ($('button[name="save"]') != null) {
             $('button[name="save"]').click();
         }
     }
 
-    logOutAllDervice = async () => {
+    logOutAllDervice = async (via) => {
         const systemUtils = new SystemUtils;
 
-        if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]') != null) {
+        if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]') > 0 ) {
             $('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bt _52jg"]')[0].click();
 
             await systemUtils.sleep(5000); // nghỉ 5 giây đợi load trang
 
-            if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]') != null) {
-                //$('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]')[0].click();
+            via.setIsLogOut = new FB().LOGOUT_SUCCESS;
+
+            this.saveViaToStorage(via);
+            
+            if ($('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]') > 0) {
+                $('a[class="_54k8 _56bs _26vk _56b_ _5-cz _56bw _56bu _52jg"]')[0].click();
             }
         }
     }
@@ -136,10 +151,10 @@ export class FBModel {
     enable2Fa = async (via) => {
         const systemUtils = new SystemUtils;
 
-        if ($('span[class="mfsm"]') != null) {
+        if ($('span[class="mfsm"]') > 0) {
             let messageError = $('span[class="mfsm"]')[0].innerText;
         }
-        if ($('a[class="_54k8 _56bs _26vk _56bu _52jg"]') != null) {
+        if ($('a[class="_54k8 _56bs _26vk _56bu _52jg"]') > 0) {
             $('a[class="_54k8 _56bs _26vk _56bu _52jg"]')[0].click();
         }
         if ($('input[name="pass"]') != null) {
@@ -153,11 +168,15 @@ export class FBModel {
         }
     }
 
-    getCode2Fa = async () =>{
+    getCode2Fa = async (via) =>{
         const systemUtils = new SystemUtils;
         if ($('div[class="_52jh _52jj _66g5"]') > 0) {
             let qRcode2FA = $('div[class="_52jh _52jj _66g5"]')[0].innerText
 
+            via.setQRcode2Fa = qRcode2FA;
+
+            this.saveViaToStorage(via);
+            
             await systemUtils.sleep(500);
 
             message = {};
@@ -185,6 +204,9 @@ export class FBModel {
 
         await systemUtils.sleep(1000);
 
+        via.setIs2Fa = new FB().CHANGE_2FA_SUCCESS;
+        this.saveViaToStorage(via);
+        
         if ($('button[name="submit[Continue]"]') != null) {
             $('button[name="submit[Continue]"]').click();
         }
@@ -202,5 +224,26 @@ export class FBModel {
         if ($('button[id="submit_code_button"]') != null) {
             $('button[id="submit_code_button"]').click();
         }
+    }
+
+    saveViaToStorage = (via) => { 
+        const systemUtils = new SystemUtils;
+        systemUtils.saveDataToStorage(data = {'data': via});
+    }
+
+    okStepMailChinh = async () => {
+        const systemUtils = new SystemUtils;
+        let step = new StepChangeVia();
+        step.formObject(await systemUtils.getDataToStorage(STEP));
+        step.isEmailChinh = step.OK;
+        systemUtils.saveDataToStorage(data = {'step': step});
+    }
+
+    okRemoveEmail = async () => {
+        const systemUtils = new SystemUtils;
+        let step = new StepChangeVia();
+        step.formObject(await systemUtils.getDataToStorage(STEP));
+        step.isRemoveEmail = step.OK;
+        systemUtils.saveDataToStorage(data = {'step': step});
     }
 }

@@ -30,7 +30,20 @@ export class Via {
 
     is2Fa = null;
 
-    constructor() {
+    constructor(object){
+        this.id = object.id;
+        this.uid = object.uid;
+        this.pass = object.pass;
+        this.passNew = object.passNew;
+        this.emailOld = object.emailOld;
+        this.passEmailOld = object.passEmailOld;
+        this.emailNew = object.emailNew;
+        this.passEmailNew = object.passEmailNew;
+        this.qRcode2Fa = object.qRcode2Fa;
+        this.isChangePass = object.isChangePass;
+        this.isLogOut = object.isLogOut;
+        this.isChangeMail = object.isChangeMail;
+        this.is2Fa = object.is2Fa;
     }
 
     set setId(id){
@@ -82,9 +95,7 @@ export class Via {
     }
 
     fromJsonStr(jsonStr) {
-        return new Promise(resolve => {
-            resolve(JSON.parse(jsonStr));
-        });
+        JSON.parse(jsonStr);
     }
 
     formObject = (object) =>{
@@ -92,7 +103,10 @@ export class Via {
         this.uid = object.uid;
         this.pass = object.pass;
         this.passNew = object.passNew;
+        this.emailOld = object.emailOld;
         this.passEmailOld = object.passEmailOld;
+        this.emailNew = object.emailNew;
+        this.passEmailNew = object.passEmailNew;
         this.qRcode2Fa = object.qRcode2Fa;
         this.isChangePass = object.isChangePass;
         this.isLogOut = object.isLogOut;

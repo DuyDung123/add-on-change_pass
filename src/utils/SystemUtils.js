@@ -12,9 +12,9 @@ export class SystemUtils{
     
     getDataToStorage = (key) =>{
         return new Promise(resolve => {
-            chrome.storage.sync.get(key, function(items){
-                console.log(items);
-                resolve(items);
+            chrome.storage.sync.get(key, function(item){
+                console.log(item.data);
+                resolve(item.data);
             });
         });
     }
