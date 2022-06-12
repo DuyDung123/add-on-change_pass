@@ -234,7 +234,7 @@ export class FBModel {
     okStepMailChinh = async () => {
         const systemUtils = new SystemUtils;
         let step = new StepChangeVia();
-        step.formObject(await systemUtils.getDataToStorage(STEP));
+        step.formObject((await systemUtils.getDataToStorage(STEP)).step);
         step.isEmailChinh = step.OK;
         systemUtils.saveDataToStorage(data = {'step': step});
     }
@@ -242,7 +242,7 @@ export class FBModel {
     okRemoveEmail = async () => {
         const systemUtils = new SystemUtils;
         let step = new StepChangeVia();
-        step.formObject(await systemUtils.getDataToStorage(STEP));
+        step.formObject((await systemUtils.getDataToStorage(STEP)).step);
         step.isRemoveEmail = step.OK;
         systemUtils.saveDataToStorage(data = {'step': step});
     }

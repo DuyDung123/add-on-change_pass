@@ -13,7 +13,7 @@ export class Job_GetCode2Fa {
         console.log(url);
         if (url.includes("https://gauth.apps.gbraad.nl")) {
             const faCodeModel = new FaCodeModel;
-            const via = new Via(await systemUtils.getDataToStorage(VIA));
+            const via = new Via((await systemUtils.getDataToStorage(VIA)).data);
             faCodeModel.getCode2Fa(via.qRcode2Fa);
         }
     }

@@ -13,8 +13,8 @@ export class SystemUtils{
     getDataToStorage = (key) =>{
         return new Promise(resolve => {
             chrome.storage.sync.get(key, function(item){
-                console.log(item.data);
-                resolve(item.data);
+                console.log(item);
+                resolve(item);
             });
         });
     }
@@ -41,7 +41,7 @@ export class SystemUtils{
             chrome.storage.sync.get(key, function (da) {
                 if (!jQuery.isEmptyObject(da)) {
                     console.log(da);
-                    if (typeof da.data === 'undefined') {
+                    if (Object.keys(data).length === 0) {
                         resolve(false);
                     } else {
                         resolve(true);

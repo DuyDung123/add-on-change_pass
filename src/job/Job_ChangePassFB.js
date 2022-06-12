@@ -10,12 +10,13 @@ export class Job_ChangePass {
         const changePassFBModel = new FBModel;
         const systemUtils = new SystemUtils;
 
-        let st = new StepChangeVia();
-        systemUtils.saveDataToStorage(data = {'step': st});
+        let st = new StepChangeVia(); 
+        st = {'step': st};
+        systemUtils.saveDataToStorage(st = {'step': st});
 
         await systemUtils.sleep(2000);
 
-        let step = new StepChangeVia(await systemUtils.getDataToStorage(STEP));
+        let step = new StepChangeVia((await systemUtils.getDataToStorage(STEP)).step);
         const fb = new FB;
         let url = document.location.href;
         let title = document.getElementsByTagName('title')[0].innerText;
@@ -38,7 +39,7 @@ export class Job_ChangePass {
                 }
             }
 
-            let via = new Via(await systemUtils.getDataToStorage(VIA));
+            let via = new Via((await systemUtils.getDataToStorage(VIA)).data);
             changePassFBModel.login(via);
         }
         if (url.includes(fb.URL_SAVE_DEVICE)) {
@@ -48,7 +49,7 @@ export class Job_ChangePass {
             window.location.href = fb.URL_SETTING;
         }
         if (url.includes(fb.URL_SETTING) || url.includes(fb.URL_SETTING_2)) {
-            let via = new Via(await systemUtils.getDataToStorage(VIA));
+            let via = new Via((await systemUtils.getDataToStorage(VIA)).data);
             if (via.isChangePass === fb.CHANGE_PASS_WAIT) {
                 window.location.href = fb.URL_SECURITY_PASSWORD;
             } else if (via.islogOut === fb.LOGOUT_WAIT) {
@@ -61,7 +62,7 @@ export class Job_ChangePass {
         }
         if (url.includes(fb.URL_CONFRIM_MAIL)) {//lấy code xác nhận email
 
-            let via = new Via(await systemUtils.getDataToStorage(VIA));
+            let via = new Via((await systemUtils.getDataToStorage(VIA)).data);
             const message = {};
             message.data = via.emailNew;
             message.type = 'request_CodeEmail';
@@ -69,7 +70,7 @@ export class Job_ChangePass {
         }
         if (url.includes("/ntdelegatescreen/?params")) {
             //add mail và đặt làm mail chính và for gỡ mail
-            let via = new Via(await systemUtils.getDataToStorage(VIA));
+            let via = new Via((await systemUtils.getDataToStorage(VIA)).data);
 
             // xác nhận mail
             changePassFBModel.confirmMail();
@@ -86,11 +87,11 @@ export class Job_ChangePass {
 
         }
         if (url.includes("settings/security/password")) { // change pass
-            let via = new Via(await systemUtils.getDataToStorage(VIA));
+            let via = new Via((await systemUtils.getDataToStorage(VIA)).data);
             changePassFBModel.changePass(via);
         }
         if (url.includes("settings/security_login/sessions")) { // log out
-            let via = new Via(await systemUtils.getDataToStorage(VIA));
+            let via = new Via((await systemUtils.getDataToStorage(VIA)).data);
             changePassFBModel.logOutAllDervice(via);
         }
 
@@ -98,7 +99,7 @@ export class Job_ChangePass {
         if (url.includes("/security/2fac/setup/intro/metadata/?source=1") || url.includes("/security/2fac/setup/qrcode/generate/?ext=")
             || url.includes("https://m.facebook.com/password/reauth/?next=") || url.includes("https://m.facebook.com/checkpoint/block")) {
 
-            let via = new Via(await systemUtils.getDataToStorage(VIA));
+            let via = new Via((await systemUtils.getDataToStorage(VIA)).data);
             changePassFBModel.enable2Fa(via);
 
             // lấy mẫ qRCode
@@ -121,7 +122,7 @@ export class Job_ChangePass {
                     await systemUtils.sleep(5000);
                 }
             }
-            let code2Fa = await systemUtils.getDataToStorage(CODE2FA);
+            let code2Fa = (await systemUtils.getDataToStorage(CODE2FA)).code2Fa;
             changePassFBModel.setCode2Fa(code2Fa);
         }
     }

@@ -1,6 +1,6 @@
 import { StepChangeVia } from "../object/StepChangeVia";
 import { Via } from "../object/Via";
-import { STEP, VIA } from "../utils/Constants";
+import { CODEEMAIL, STEP, VIA } from "../utils/Constants";
 import { SystemUtils } from "../utils/SystemUtils";
 
 $(document).ready(function () {
@@ -10,20 +10,22 @@ $(document).ready(function () {
         message.data = 'getData';
         message.type = 'load_data';
         systemUtils.requestGetDataToBackground(message);
+        let st = new StepChangeVia(); 
+        st = {'step': st};
+        systemUtils.saveDataToStorage(st);
     });
 
     $(document).on('click', '#btn_show_Via', async function () {
+        debugger;
         const systemUtils = new SystemUtils;
         let data = await systemUtils.getDataToStorage(VIA);
-        if (typeof data !== 'undefined') {
-            let via = new Via(data);
-            via.setCookie = "hahahaha";
+        if (Object.keys(data).length !== 0) {
+            let via = new Via(data.data);
             console.log(via);
-            console.log(via.uid);
-            let step = await systemUtils.getDataToStorage(STEP);
+            let step = (await systemUtils.getDataToStorage(STEP)).step;
             console.log(step);
-            systemUtils.saveDataToStorage(data = {'data': via});
-            console.log(via);
+            let codeEmail = (await systemUtils.getDataToStorage(CODEEMAIL)).codeEmail;
+            console.log(codeEmail);
         }else{
             console.log("empty");
         }
@@ -43,8 +45,9 @@ $(document).ready(function () {
 
     $(document).on('click', '#get_token', function () {
         const systemUtils = new SystemUtils;
-        //loadStep(systemUtils);
-        getToken();
+        let data = {'codeEmail': 1234 };
+        systemUtils.saveDataToStorage(data);
+        // getToken();
     });
 
     $(document).on('click', '#get_cookie', function () {

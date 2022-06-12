@@ -11,7 +11,7 @@ export class Job_Mail {
     gmail = async () => {
         const systemUtils = new SystemUtils;
         const emailModel = new EmailModel;
-        const via = new Via(await systemUtils.getDataToStorage(VIA));
+        const via = new Via(await systemUtils.getDataToStorage(VIA).data);
         await systemUtils.sleep(2000);
         let url = document.location.href;
         let title = document.getElementsByTagName('title')[0].innerText;
@@ -19,7 +19,8 @@ export class Job_Mail {
         console.log(url);
         if (url.includes("https://accounts.google.com/signin/v2/")) {
             if (url.includes("/signin/v2/identifier")) {
-                emailModel.gmail_Login(via.emailNew, via.passEmailNew);
+                // emailModel.gmail_Login(via.emailNew, via.passEmailNew);
+                emailModel.gmail_Login('dungtestmailyahoo@gmail.com', 'Dung@1234');
             }
         }
         if (url.includes("https://gds.google.com/web/chip?")) {
@@ -40,7 +41,7 @@ export class Job_Mail {
 
         const systemUtils = new SystemUtils;
         const hostMailModel = new HosstMailModel;
-        const via = new Via(await systemUtils.getDataToStorage(VIA));
+        const via = new Via((await systemUtils.getDataToStorage(VIA).data));
         await systemUtils.sleep(2000);
         let url = document.location.href;
         let title = document.getElementsByTagName('title')[0].innerText;
@@ -48,10 +49,11 @@ export class Job_Mail {
         console.log(url);
 
         if (url.includes("https://login.live.com/login")) {
-            hostMailModel.hostMail_login(via.emailNew, via.passEmailNew);
+            //hostMailModel.hostMail_login(via.emailNew, via.passEmailNew);
+            hostMailModel.login('dinhvandung791@hotmail.com', 'Dung@1234');
         }
         if (url.includes("https://login.live.com/ppsecure/")) {
-            // k hiển thị thông báo.
+            // k hiển thị thông báo. không lưu thiết bị
             if ($('input[name="DontShowAgain"]') !== null) {
                 $('input[name="DontShowAgain"]').click();
             }

@@ -34,7 +34,7 @@
 	],
 	"content_scripts": [
 	  {
-		"matches": ["http://127.0.0.1:5001/*", "https://www.facebook.com/*", "https://m.facebook.com/*"],
+		"matches": ["http://127.0.0.1:5001/*", "https://m.facebook.com/*"],
 		  "css": ["css/styles.css"],
 		  "js": ["content_script.js", "./lib/jquery-3.6.0.min.js", "./lib/moment.min.js"]
 	  },
