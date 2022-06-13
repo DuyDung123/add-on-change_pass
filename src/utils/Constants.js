@@ -12,6 +12,7 @@ export const VIA = "data";
 export const CODE2FA = "code2Fa";
 export const STEP = "step";
 export const CODEEMAIL = "codeEmail";
+export const MAIL = 'mail';
 
 export class FB {
 

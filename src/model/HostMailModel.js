@@ -99,4 +99,96 @@ export class HosstMailModel {
             }
         }
     }
-}
+
+    register = async (systemUtils, mail) =>{
+        if ($('input[name="MemberName"]') !== null) {
+            $('input[name="MemberName"]').val(mail.email);
+        }
+
+        await systemUtils.sleep(2000);
+
+        if ($('select[name="LiveDomainBoxList"]') !== null) {
+            $('select[name="LiveDomainBoxList"]').val('hotmail.com');
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[id="iSignupAction"]') !== null) {
+            $('input[id="iSignupAction"]').focus();
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[id="iSignupAction"]') !== null) {
+            $('input[id="iSignupAction"]').click();
+        }
+
+        await systemUtils.sleep(4000);
+
+        if ($('input[name="Password"]') !== null) {
+            $('input[name="Password"]').val(pasword);
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[id="iSignupAction"]') !== null) {
+            $('input[id="iSignupAction"]').focus();
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[id="iSignupAction"]') !== null) {
+            $('input[id="iSignupAction"]').click();
+        }
+
+        await systemUtils.sleep(4000);
+
+        if ($('input[name="LastName"]') !== null) {
+            $('input[name="LastName"]').val(mail.email);
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[name="FirstName"]') !== null) {
+            $('input[name="FirstName"]').val(mail.email);
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[id="iSignupAction"]') !== null) {
+            $('input[id="iSignupAction"]').click();
+        }
+
+        await systemUtils.sleep(4000);
+        
+        if ($('select[name="BirthDay"]') !== null) {
+            $('select[name="BirthDay"]').val('12');
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('select[name="BirthMonth"]') !== null) {
+            $('select[name="BirthMonth"]').val('12');
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[name="BirthYear"]') !== null) {
+            $('input[name="BirthYear"]').val('1997');
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[id="iSignupAction"]') !== null) {
+            $('input[id="iSignupAction"]').focus();
+        }
+
+        await systemUtils.sleep(1000);
+
+        if ($('input[id="iSignupAction"]') !== null) {
+            $('input[id="iSignupAction"]').click();
+        }
+
+        let btn = $('button[id="home_children_button"]')
+    }
+}//dssdsd@outlook.com.vn/Dung@1234

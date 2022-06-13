@@ -31,6 +31,10 @@ export class SystemUtils{
             // use `url` here inside the callback because it's asynchronous!
         });
     }
+
+    getUrlPage = () =>{
+        return document.location.href;
+    }
     
     openNewTab = (newURL) =>{
         chrome.tabs.create({ url: newURL });
