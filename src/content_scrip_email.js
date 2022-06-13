@@ -5,7 +5,7 @@ const job_mail = new Job_Mail;
     let url = document.location.href;
     if (url.includes("google.com")) {
         job_mail.gmail();
-    } if (url.includes("live.com")) {
+    } if (url.includes("live.com") || url.includes("microsoft.com")) {
         job_mail.outLook();
     }
  })();

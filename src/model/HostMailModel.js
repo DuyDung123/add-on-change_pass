@@ -69,20 +69,20 @@ export class HosstMailModel {
                     break;
                 }
             }
-            if (qRcode == 0) {
+            if (typeof qRcode ==='undefined' || qRcode === 0) {
                 regex = /c=(?<res>[0-9]{5,7})/gm;
                 for (let i = 0; i < html.length; i++) {
                     html[i].click();
                     await systemUtils.sleep(1000);
                     let contentMail = document.getElementById('x_email_content');
                     qRcode = systemUtils.regexString(contentMail.innerHTML, regex);
-                    if (qRcode != 0) {
+                    if (typeof qRcode !=='undefined' && qRcode !== 0) {
                         console.log(qRcode);
                         break;
                     }
                 }
             }
-            if (qRcode != 0) {
+            if (typeof qRcode !=='undefined' && qRcode !== 0) {
 
                 let data = {'codeEmail': qRcode };
                 systemUtils.saveDataToStorage(data);

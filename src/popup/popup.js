@@ -16,7 +16,6 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#btn_show_Via', async function () {
-        debugger;
         const systemUtils = new SystemUtils;
         let data = await systemUtils.getDataToStorage(VIA);
         if (Object.keys(data).length !== 0) {
