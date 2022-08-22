@@ -111,37 +111,13 @@ export class HosstMailModel {
             $('select[name="LiveDomainBoxList"]').val('hotmail.com');
         }
 
-        await systemUtils.sleep(1000);
-
-        if ($('input[id="iSignupAction"]') !== null) {
-            $('input[id="iSignupAction"]').focus();
-        }
-
-        await systemUtils.sleep(1000);
-
-        if ($('input[id="iSignupAction"]') !== null) {
-            $('input[id="iSignupAction"]').click();
-        }
-
-        await systemUtils.sleep(4000);
+        this.btnISignupAction(systemUtils);
 
         if ($('input[name="Password"]') !== null) {
             $('input[name="Password"]').val(pasword);
         }
 
-        await systemUtils.sleep(1000);
-
-        if ($('input[id="iSignupAction"]') !== null) {
-            $('input[id="iSignupAction"]').focus();
-        }
-
-        await systemUtils.sleep(1000);
-
-        if ($('input[id="iSignupAction"]') !== null) {
-            $('input[id="iSignupAction"]').click();
-        }
-
-        await systemUtils.sleep(4000);
+        this.btnISignupAction(systemUtils);
 
         if ($('input[name="LastName"]') !== null) {
             $('input[name="LastName"]').val(mail.email);
@@ -153,13 +129,7 @@ export class HosstMailModel {
             $('input[name="FirstName"]').val(mail.email);
         }
 
-        await systemUtils.sleep(1000);
-
-        if ($('input[id="iSignupAction"]') !== null) {
-            $('input[id="iSignupAction"]').click();
-        }
-
-        await systemUtils.sleep(4000);
+        this.btnISignupAction(systemUtils);
         
         if ($('select[name="BirthDay"]') !== null) {
             $('select[name="BirthDay"]').val('12');
@@ -177,6 +147,13 @@ export class HosstMailModel {
             $('input[name="BirthYear"]').val('1997');
         }
 
+        this.btnISignupAction(systemUtils);
+
+        let btn = $('button[id="home_children_button"]')
+    }
+
+    btnISignupAction = async (systemUtils) =>{
+
         await systemUtils.sleep(1000);
 
         if ($('input[id="iSignupAction"]') !== null) {
@@ -189,6 +166,21 @@ export class HosstMailModel {
             $('input[id="iSignupAction"]').click();
         }
 
-        let btn = $('button[id="home_children_button"]')
+        await systemUtils.sleep(4000);
     }
 }//dssdsd@outlook.com.vn/Dung@1234
+
+{/* <Host appBase="webapps" autoDeploy="true" name="localhost" unpackWARs="true">
+
+<!-- SingleSignOn valve, share authentication between web applications
+     Documentation at: /docs/config/valve.html -->
+<!--
+<Valve className="org.apache.catalina.authenticator.SingleSignOn" />
+-->
+
+<!-- Access log processes all example.
+     Documentation at: /docs/config/valve.html
+     Note: The pattern used is equivalent to using pattern="common" -->
+<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
+  
+<Context docBase="web-jdbc-servlet" path="/web-jdbc-13-03-2020" reloadable="true" source="org.eclipse.jst.jee.server:web-jdbc-servlet"/></Host> */}
