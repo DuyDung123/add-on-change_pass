@@ -7,6 +7,7 @@ module.exports = {
     content_script: "./src/content_script.js",
     content_scrip_2fa: "./src/content_scrip_2fa.js",
     content_scrip_email: "./src/content_scrip_email.js",
+    content_update_extension: "./src/content_update_extension.js",
     popup: "./src/popup/popup.js",
   },
   output: {

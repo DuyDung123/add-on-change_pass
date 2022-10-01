@@ -7,6 +7,9 @@ export const BASE_HOST_MAIL = "https://outlook.live.com/owa/?nlp=1";
 export const BASE_MAIL_GOOGLE = "https://accounts.google.com/signin/v2/identifier";
 
 
+export const NAME_PROJECT = "FB";
+export const VERSION = "1.0";
+
 // data storage
 export const VIA = "data";
 export const CODE2FA = "code2Fa";

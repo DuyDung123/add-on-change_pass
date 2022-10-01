@@ -18,13 +18,6 @@
 	  "default_title": "change pass FB",
 	  "default_popup": "popup.html"
 	},
-	"icons":{
-		"16": "icons/16.png",
-		"19": "icons/19.png",
-		"38": "icons/38.png",
-		"64": "icons/64.png",
-		"128": "icons/128.png"
-	},
 	"permissions": [
 		"contextMenus",
 		"storage",
@@ -41,12 +34,12 @@
 	],
 	"content_scripts": [
 	  {
-		"matches": ["http://127.0.0.1:5001/*", "https://m.facebook.com/*"],
+		"matches": ["https://m.facebook.com/*"],
 		  "css": ["css/styles.css"],
 		  "js": ["content_script.js", "./lib/jquery-3.6.0.min.js", "./lib/moment.min.js"]
 	  },
 	  {
-		"matches": ["http://127.0.0.1:5001/*", "https://gauth.apps.gbraad.nl/*"],
+		"matches": ["https://gauth.apps.gbraad.nl/*"],
 		  "css": ["css/styles.css"],
 		  "js": ["content_scrip_2fa.js", "./lib/jquery-3.6.0.min.js", "./lib/moment.min.js"]
 	  },
@@ -54,6 +47,11 @@
 		"matches": ["https://outlook.live.com/*", "https://login.live.com/*","https://account.microsoft.com/*","https://accounts.google.com/*","https://mail.google.com/*","https://gds.google.com/*","https://myaccount.google.com/*"],
 		  "css": ["css/styles.css"],
 		  "js": ["content_scrip_email.js", "./lib/jquery-3.6.0.min.js", "./lib/moment.min.js"]
+	  },
+	  {
+		"matches": ["http://127.0.0.1:5001/*"],
+		  "css": ["css/styles.css"],
+		  "js": ["content_update_extension.js", "./lib/jquery-3.6.0.min.js", "./lib/moment.min.js"]
 	  }
 	]
   }
