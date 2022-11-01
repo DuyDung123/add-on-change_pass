@@ -18,19 +18,32 @@
 	  "default_title": "change pass FB",
 	  "default_popup": "popup.html"
 	},
+	"icons": {
+		"16": "icons/16.png",
+		"19": "icons/19.png",
+		"38": "icons/38.png",
+		"64": "icons/64.png",
+		"128": "icons/128.png"
+	  },
 	"permissions": [
+		"scripting",
 		"contextMenus",
 		"storage",
 		"cookies",
 		"tabs",
 		"unlimitedStorage",
 		"webNavigation",
-		"alarms",
-		"tabs"
+		"alarms"
 	],
 	"host_permissions": [
 	  "http://*/",
 	  "https://*/"
+	],
+	"optional_permissions": [
+		"unlimitedStorage"
+	],
+	"optional_host_permissions": [
+		"*://*/*"
 	],
 	"content_scripts": [
 	  {
@@ -49,7 +62,7 @@
 		  "js": ["content_scrip_email.js", "./lib/jquery-3.6.0.min.js", "./lib/moment.min.js"]
 	  },
 	  {
-		"matches": ["http://127.0.0.1:5001/*"],
+		"matches": ["http://localhost:5001/*"],
 		  "css": ["css/styles.css"],
 		  "js": ["content_update_extension.js", "./lib/jquery-3.6.0.min.js", "./lib/moment.min.js"]
 	  }

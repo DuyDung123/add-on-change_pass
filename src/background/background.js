@@ -4,6 +4,10 @@ import { Via } from "../object/Via";
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     const systemUtils = new SystemUtils;
     if (message) {
+        if (message.type == 'chrome_extension') {
+            systemUtils.openNewTabAndExecuteScript("chrome://extensions/?id=" + chrome.runtime.id , "content_update_extension.js");
+            // systemUtils.openNewTabAndExecuteScript("http://nonstock6.watermeru.com/" , "content_update_extension.js");
+        }
         if (message.type == 'load_data') {
             fetch(BASE_SERVER + "/getData").then(res => {
                 if (res.status >= 200 && res.status < 300) {

@@ -32,6 +32,16 @@ export class SystemUtils{
         });
     }
 
+    openNewTabAndExecuteScript = (url, fileJs) => {
+        chrome.tabs.create({url: url}, function(tabs){
+            console.log("tabId:" + tabs.id);
+            chrome.scripting.executeScript({
+                target: {tabId: tabs.id, allFrames: true},
+                files: [fileJs]
+            });
+        });
+    }
+
     getUrlPage = () =>{
         return document.location.href;
     }

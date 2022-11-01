@@ -4,14 +4,18 @@ import { SystemUtils } from "./utils/SystemUtils";
 const chorme = new ChromeUtils;
 const systemUtils = new SystemUtils;
 (async() => {
-    if(systemUtils.getUrlPage().includes("http://127.0.0.1:5001")){
-        systemUtils.goToPage("chrome://extensions");
+    if(systemUtils.getUrlPage().includes("localhost")){
+        const message = {};
+            message.data = 'getData';
+            message.type = 'chrome_extension';
+            systemUtils.requestGetDataToBackground(message);
     }else{
         alert("error");
     }
-    if(systemUtils.getUrlPage().includes("chrome://extensions")){
-        chorme.updateVersionChrome();
-        await systemUtils.sleep(2000);
-        let idExtension = chorme.getIdExtensionChrome();
-    }
+    // if(systemUtils.getUrlPage().includes("chrome://extensions")){
+    //     chorme.chromeHello();
+    //     chorme.updateVersionChrome();
+    //     await systemUtils.sleep(2000);
+    //     let idExtension = chorme.getIdExtensionChrome();
+    // }
  })();
