@@ -24,7 +24,7 @@
 		"38": "icons/38.png",
 		"64": "icons/64.png",
 		"128": "icons/128.png"
-	  },
+	},
 	"permissions": [
 		"scripting",
 		"contextMenus",
